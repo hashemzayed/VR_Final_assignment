@@ -8,11 +8,13 @@ public class CubeLogic : MonoBehaviour
     private XRGrabInteractable grab;
     private Vector3 startPos;
     private bool isLocked = false;
+    private AudioSource audioSource;
 
     void Start()
     {
         grab = GetComponent<XRGrabInteractable>();
         startPos = transform.position;
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void LockToPosition(Vector3 position)
@@ -29,13 +31,9 @@ public class CubeLogic : MonoBehaviour
         {
             transform.position = startPos;
             transform.rotation = Quaternion.identity;
-            // Optional: Add a buzz sound
+            if (audioSource) audioSource.Play();  // plays errorBuzz
         }
     }
 
-    public bool IsLocked()
-    {
-        return isLocked;
-    }
+    public bool IsLocked() => isLocked;
 }
-

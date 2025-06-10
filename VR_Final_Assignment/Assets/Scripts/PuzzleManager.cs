@@ -8,22 +8,25 @@ public class PuzzleManager : MonoBehaviour
 {
     private int placedCount = 0;
     public GameObject winPanel;
+    private AudioSource audioSource;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public void CubePlacedCorrectly()
     {
         placedCount++;
-        Debug.Log("Placed Count: " + placedCount);
-
         if (placedCount >= 3)
         {
-            Debug.Log("Puzzle Completed!");
             ShowWinScreen();
         }
     }
 
     void ShowWinScreen()
     {
-        Debug.Log("Activating Win Panel");
+        if (audioSource) audioSource.Play();  // plays winJingle
         if (winPanel != null)
             winPanel.SetActive(true);
     }
